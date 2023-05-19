@@ -1,15 +1,23 @@
-import React, {createElement as e } from 'react';
+// import axios, { AxiosError } from 'axios';
+// import React, { useEffect, useState } from 'react';
+import { Product } from './components/Product';
+import { useProducts } from './hooks/products';
+
 
 
 function App() {
-  // return (
-  //   <h1> React</h1>
-  //   )
-  return e('div', {className:'container'}, [
-    e('h1', { className: 'font-bold' }, 'Test JSX'),
-    e('button', {className:''}, 'Click me')
-  ]);
-  
+  const {loading, error, products} = useProducts()
+
+  return (
+    <div className='container mx-auto max-w-2xl pt-5'>
+      {loading && <p className='text-center'>Loading...</p>}
+      {error && <p className='text-center to-red-100'>{ error }</p>}
+      {products.map(product => <Product product={product} key={product.id} />)}
+      {/* <Product product={products[0]} />
+      <Product product={products[1]}/> */}
+      
+    </div>
+  )
 }
 
 export default App;
